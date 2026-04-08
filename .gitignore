@@ -1,0 +1,10 @@
+node_modules
+apps/dashboard/dist
+.flaker
+.artifacts
+playwright-report
+test-results
+_build
+vrt/dashboard/*-current.png
+vrt/dashboard/*.html
+vrt/dashboard/snapshot-report.json
