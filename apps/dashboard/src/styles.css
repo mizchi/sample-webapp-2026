@@ -1,6 +1,6 @@
 :root {
   color-scheme: light;
-  font-family: "Avenir Next", "Helvetica Neue", "Trebuchet MS", sans-serif;
+  font-family: "Public Sans", sans-serif;
   background:
     radial-gradient(circle at top left, rgba(255, 154, 84, 0.24), transparent 26%),
     radial-gradient(circle at 85% 18%, rgba(70, 170, 190, 0.22), transparent 24%),
@@ -112,7 +112,7 @@ button {
 .incident-card h3,
 .service-drawer h3 {
   margin: 0;
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-family: "Newsreader", serif;
   font-weight: 700;
 }
 

@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@fontsource/newsreader':
+        specifier: ^5.2.10
+        version: 5.2.10
+      '@fontsource/public-sans':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.59.1
@@ -356,6 +362,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/newsreader@5.2.10':
+    resolution: {integrity: sha512-TFaYzoFhDqarUyV2yYjgZZEwT4bpaj6sGBnXSnFknQ/QB8/9LzfY6IO9+inHOX4zzPp87Z7/KuG1OI5gr91Q3A==}
+
+  '@fontsource/public-sans@5.2.7':
+    resolution: {integrity: sha512-pVttDr3HvhVIt2x6sZJfZKksNEpq23C1JCHTQwT9KWJdmFRdNeRM8gQftq8uP72sPW+p3Ku9x8HPk2E392DFvg==}
 
   '@hono/node-server@1.19.13':
     resolution: {integrity: sha512-TsQLe4i2gvoTtrHje625ngThGBySOgSK3Xo2XRYOdqGN1teR8+I7vchQC46uLJi8OF62YTYA3AhSpumtkhsaKQ==}
@@ -1412,6 +1424,10 @@ snapshots:
 
   '@esbuild/win32-x64@0.27.7':
     optional: true
+
+  '@fontsource/newsreader@5.2.10': {}
+
+  '@fontsource/public-sans@5.2.7': {}
 
   '@hono/node-server@1.19.13(hono@4.12.12)':
     dependencies:
