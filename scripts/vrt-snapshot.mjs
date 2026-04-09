@@ -75,16 +75,19 @@ try {
   await waitForUrl(config.baseUrl);
 
   const vrtRoot = resolveExternalRepo("vrt", "VRT_DIR");
-  const vrtEntry = resolve(vrtRoot, "src/vrt.ts");
   const urls = config.routes.map((route) => new URL(route, config.baseUrl).toString());
 
-  runCommandChecked(process.execPath, [
+  runCommandChecked("pnpm", [
+    "--dir",
+    vrtRoot,
+    "exec",
+    "node",
     "--experimental-strip-types",
-    vrtEntry,
+    "src/vrt.ts",
     "snapshot",
     ...urls,
     "--output",
-    config.outputDir,
+    outputDir,
   ]);
 
   const report = JSON.parse(await readFile(resolve(outputDir, "snapshot-report.json"), "utf-8"));
