@@ -38,4 +38,13 @@ describe("api app", () => {
     const response = await app.request("http://localhost/api/services/unknown");
     expect(response.status).toBe(404);
   });
+
+  it("returns a fallback page when the dashboard bundle is not built", async () => {
+    const response = await app.request("http://localhost/");
+    expect(response.status).toBe(200);
+
+    const html = await response.text();
+    expect(html).toContain("Dashboard assets are not built yet.");
+    expect(html).toContain("pnpm build");
+  });
 });

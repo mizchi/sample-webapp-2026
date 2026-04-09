@@ -12,6 +12,7 @@ import {
 import { buildDashboardSnapshot, getServiceDetail } from "./data/dashboard-data.ts";
 
 const dashboardDistDir = resolve(import.meta.dirname, "../../dashboard/dist");
+const dashboardBundleAvailable = existsSync(dashboardDistDir);
 
 export const app = new Hono();
 
@@ -37,11 +38,16 @@ app.get("/api/services/:serviceId", (c) => {
   return c.json(serviceDetailSchema.parse(detail));
 });
 
-app.use("/assets/*", serveStatic({ root: dashboardDistDir }));
+if (dashboardBundleAvailable) {
+  app.use("/assets/*", serveStatic({ root: dashboardDistDir }));
 
-app.get("*", async (c) => {
-  if (!existsSync(dashboardDistDir)) {
-    return c.html(
+  app.get("*", async (c) => {
+    const html = await readFile(resolve(dashboardDistDir, "index.html"), "utf-8");
+    return c.html(html);
+  });
+} else {
+  app.get("*", (c) =>
+    c.html(
       [
         "<!doctype html>",
         "<html><body style=\"font-family:sans-serif;padding:24px\">",
@@ -49,9 +55,5 @@ app.get("*", async (c) => {
         "<p>Dashboard assets are not built yet. Run <code>pnpm build</code> for the static bundle, or <code>pnpm dev</code> for the Vite dev server.</p>",
         "</body></html>",
       ].join(""),
-    );
-  }
-
-  const html = await readFile(resolve(dashboardDistDir, "index.html"), "utf-8");
-  return c.html(html);
-});
+    ));
+}
