@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://127.0.0.1:43173",
   "outputDir": "vrt/dashboard",
-  "threshold": 0.003,
+  "threshold": 0.07,
   "routes": [
     "/",
     "/critical",

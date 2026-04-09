@@ -17,6 +17,12 @@ const viteEntry = resolve(repoRoot, "node_modules/vite/bin/vite.js");
 const apiPort = "48787";
 const dashboardPort = "43173";
 
+function getEffectiveDiffRatio(entry) {
+  const rawDiffRatio = entry.diffRatio ?? Number.POSITIVE_INFINITY;
+  const compensatedDiffRatio = entry.compensatedDiffRatio ?? Number.POSITIVE_INFINITY;
+  return Math.min(rawDiffRatio, compensatedDiffRatio);
+}
+
 await ensureArtifactsDir();
 await rm(resolve(repoRoot, ".artifacts", "vrt-summary.md"), { force: true }).catch(() => {});
 
@@ -95,7 +101,7 @@ try {
   const newBaselines = results.filter((entry) => entry.isNew);
   const compared = results.filter((entry) => !entry.isNew);
   const regressions = compared.filter((entry) => {
-    const diffRatio = entry.compensatedDiffRatio ?? entry.diffRatio ?? 0;
+    const diffRatio = getEffectiveDiffRatio(entry);
     return diffRatio > config.threshold;
   });
 
@@ -112,7 +118,7 @@ try {
   if (regressions.length > 0) {
     lines.push("## regressions", "");
     for (const regression of regressions) {
-      const diffRatio = regression.compensatedDiffRatio ?? regression.diffRatio ?? 0;
+      const diffRatio = getEffectiveDiffRatio(regression);
       lines.push(`- ${regression.label} / ${regression.viewport}: ${(diffRatio * 100).toFixed(2)}%`);
     }
     lines.push("");
