@@ -8,12 +8,21 @@ import { readInitialViewState } from "./lib/view-state.ts";
 import "./styles.css";
 
 const initialView = readInitialViewState();
+const root = createRoot(document.getElementById("root")!);
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App
-      initialSeverity={initialView.severity}
-      initialFocusServiceId={initialView.focusServiceId}
-    />
-  </StrictMode>,
-);
+async function bootstrap() {
+  if ("fonts" in document) {
+    await document.fonts.ready;
+  }
+
+  root.render(
+    <StrictMode>
+      <App
+        initialSeverity={initialView.severity}
+        initialFocusServiceId={initialView.focusServiceId}
+      />
+    </StrictMode>,
+  );
+}
+
+void bootstrap();
