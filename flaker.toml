@@ -24,22 +24,22 @@ config = ""
 
 [quarantine]
 auto = true
-flaky_rate_threshold = 30
+flaky_rate_threshold_percentage = 30
 min_runs = 5
 
 [flaky]
 window_days = 14
-detection_threshold = 10
+detection_threshold_ratio = 0.1
 
 [profile.scheduled]
 strategy = "full"
-co_failure_days = 30
+co_failure_window_days = 30
 
 [profile.ci]
 strategy = "hybrid"
-percentage = 60
+sample_percentage = 60
 holdout_ratio = 0.1
-co_failure_days = 30
+co_failure_window_days = 30
 adaptive = true
 adaptive_min_percentage = 20
 adaptive_step = 10
@@ -48,6 +48,6 @@ skip_quarantined = true
 [profile.local]
 strategy = "affected"
 fallback_strategy = "hybrid"
-percentage = 40
+sample_percentage = 40
 max_duration_seconds = 60
 skip_quarantined = true
